@@ -17,7 +17,7 @@ export default class Facebook extends Component {
   };
   responseFacebook = response => {
     // console.log(response);
-
+    localStorage.setItem('user', JSON.stringify(response))
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -27,9 +27,11 @@ export default class Facebook extends Component {
     });
   };
 
-  componentClicked = () => console.log("clicked");
-
+  componentClicked = () => {
+    console.log("Login facebook successfuly");
+  }
   logoutFacebook = () => {
+    localStorage.removeItem('user')
     this.setState({
       isLoggedIn: false,
       userID: '',
@@ -42,7 +44,7 @@ export default class Facebook extends Component {
   render() {
     let fbContent;
 
-    if (this.state.isLoggedIn) {
+    if (localStorage.getItem('user')!=null) {
       fbContent = (
         <div
           style={{
@@ -79,7 +81,7 @@ export default class Facebook extends Component {
           }}
         >
           <FacebookLogin
-            appId="639373010269446"
+            appId="1344752912602264"
             autoLoad={false}
             fields="name,email,picture"
             onClick={this.componentClicked}
